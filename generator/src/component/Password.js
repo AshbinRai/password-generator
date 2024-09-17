@@ -9,6 +9,7 @@ export default function Password(){
     const [special,setSpecial] = useState(true);
     const [similar,setSimilar] = useState(true);
     const [length,setLength] = useState(8);
+    // const [mode,setMode] = useState('light');
 
     const changeLength = (event) =>{
         setLength(event.target.value);
@@ -65,6 +66,14 @@ export default function Password(){
     useEffect(()=>{
         generatePassword();
     },[length,capital,small,digit,special,similar]);
+    const switchMode = () => {
+        let currentMode = document.getElementsByTagName('html')[0].getAttribute('data-bs-theme');
+        if(currentMode==='dark'){
+            document.getElementsByTagName('html')[0].setAttribute('data-bs-theme','dark');
+        }else{
+            document.getElementsByTagName('html')[0].setAttribute('data-bs-theme','light');
+        }
+    };
 
     return (
         <>
@@ -108,6 +117,12 @@ export default function Password(){
                     </div>
                 </div>
             </div>
+    <div className="btn-mode" onClick={switchMode}>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" onclick={switchMode} />
+        <label class="form-check-label" for="flexSwitchCheckChecked">Change Mode</label>
+      </div>
+  </div>
         </>
     )
 }
